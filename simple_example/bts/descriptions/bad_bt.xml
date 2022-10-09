@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////THIS BT SHOLD NOT BE RUN. IT EXISTS FOR EDUCATIONAL PURPOSES/// -->
+    <BehaviorTree ID="BehaviorTree">
+        <ReactiveSequence>
+            <ReactiveFallback>
+                <Condition ID="BatteryLevelAbove" reference_value="10"/>
+                <Action ID="GoTo" pose="{charging_station}"/>
+            </ReactiveFallback>
+            <Sequence>
+                <Action ID="GoTo" pose="{pose_of_interest1}"/>
+                <Action ID="GoTo" pose="{pose_of_interes2}"/>
+            </Sequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Condition ID="BatteryLevelAbove">
+            <input_port name="reference_value"/>
+        </Condition>
+        <Action ID="GoTo">
+            <input_port name="pose"/>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
+

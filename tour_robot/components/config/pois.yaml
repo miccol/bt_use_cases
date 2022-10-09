@@ -1,0 +1,18 @@
+pois:
+  poi0:
+    id: "0"
+    pose: [[+1.0, +3.0, 0.0], [0.707, 0.0, 0.0, 0.707]]
+    description: "This a lovely piece of art called ZERO"
+  poi1:
+    id: "1"
+    pose: [[+1.0, +8.0, 0.0], [0.707, 0.0, 0.0, 0.707]]
+    description: "This a lovely piece of art called ONE"
+  poi2:
+    id: "2"
+    pose: [[+4.0, +3.0, 0.0], [0.707, 0.0, 0.0, 0.707]]
+    description: "This a lovely piece of art called TWO"
+  poi3:
+    id: "3"
+    pose: [[-4.0, +6.0, 0.0], [0.707, 0.0, 0.0, 0.707]]
+    description: "This a lovely piece of art called THREE"
+

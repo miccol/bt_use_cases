@@ -1,0 +1,19 @@
+name: Humble-Ubuntu-Latest
+
+on: [push, pull_request]
+
+jobs:
+  industrial_ci:
+    strategy:
+      matrix:
+        env:
+          - {ROS_DISTRO: humble, ROS_REPO: main}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          repository: miccol/ros2_bt_utils
+          path: ros2_bt_utils
+      - uses: 'ros-industrial/industrial_ci@master'
+        env: ${{matrix.env}}

@@ -1,0 +1,4 @@
+---
+uint8 status 
+bool is_ok
+string error_msg

@@ -1,0 +1,4 @@
+---
+geometry_msgs/PoseStamped pose_stamped
+bool is_ok
+string error_msg

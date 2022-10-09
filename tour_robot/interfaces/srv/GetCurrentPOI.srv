@@ -1,0 +1,7 @@
+---
+geometry_msgs/Pose pose
+int8 id
+string description
+string label
+bool is_ok
+string error_msg
