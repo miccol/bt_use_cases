@@ -1,0 +1,73 @@
+FROM osrf/ros:humble-desktop
+
+#to enable the use of "source"
+SHELL ["/bin/bash", "-c"]
+
+ENV username btuc
+ENV uid 1000
+ENV gid 1000
+
+RUN apt update -qq
+
+# setup user
+RUN groupadd --system --gid ${gid} ${username}; \
+    useradd --system --home-dir /home/$username --create-home --shell /bin/bash --uid $uid --gid $gid --groups root,sudo $username -p "$(openssl passwd -1 $username)"; \
+    sudo usermod -aG sudo $username ;\
+    mkdir -p /run/user/$uid; \
+    chown $username: /run/user/$uid; \
+    chmod 700 /run/user/$uid; \
+    chown -R $username: /usr/local/src/; \
+    mkdir -p /home/$username/logs; \
+    mkdir -p /home/$username/bts_descriptions; \
+    chown -R $username: /home/$username/logs
+
+#setup workspace
+WORKDIR /usr/local
+
+COPY . /usr/local/ws/src
+
+RUN apt update -qq
+
+RUN source /opt/ros/humble/setup.bash && \
+    echo "----------------- INSTALL DEPENDENCIES -----------------" && \
+    apt -y install libgazebo11 && \
+    apt -y install python3-pip && \
+    pip install transforms3d  && \
+    apt install -y libzmq3-dev libboost-dev &&\  
+    apt install -y qtbase5-dev libqt5svg5-dev libzmq3-dev libdw-dev &&\ 
+    apt install -y ros-humble-gazebo-*  &&\  
+    apt install -y ros-humble-behaviortree-cpp-v3 &&\
+    apt install -y ros-humble-navigation2 &&\
+    apt install -y ros-humble-nav2-bringup &&\
+    echo "----------------- CLONE and BUILD CUSTOM REPOS ------------" && \
+    cd ws/src && \
+    git clone https://github.com/miccol/ros2_bt_utils.git && \
+    git clone https://github.com/BehaviorTree/Groot.git && \
+    cd .. && \
+    rosdep install --from-paths src --ignore-src && \
+    echo "----------------- COLCON BUILD -------------------------" && \
+    colcon build && \
+    source /opt/ros/humble/setup.bash && \
+    echo "source /usr/local/ws/install/setup.bash">>~/.bashrc && \
+    mkdir -p /home/$username/logs && \
+    mkdir -p /home/$username/bts_descriptions && \
+    chown -R $username: /home/$username/logs && \
+    chown -R $username: /home/$username/bts_descriptions
+
+#setup gazebo simulation env vars
+ENV TURTLEBOT3_MODEL waffle
+ENV GAZEBO_MODEL_PATH $GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/model
+
+# setup vas for X11 server connection (useful if run in WSL)
+ENV DISPLAY host.docker.internal:0.0
+ENV LIBGL_ALWAYS_INDIRECT 0
+
+COPY ros_entrypoint.sh /
+RUN chmod +x /ros_entrypoint.sh
+ENTRYPOINT [ "/ros_entrypoint.sh" ]
+
+
+USER $username
+WORKDIR /home/$username
+
+CMD ["bash"]
