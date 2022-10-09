@@ -1,0 +1,4 @@
+sensor_msgs/BatteryState state
+---
+bool is_ok
+string error_msg

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <ReactiveSequence>
+            <ReactiveFallback>
+                <Sequence>
+                    <Condition ID="BatteryLevelAbove" reference_value="0.1"/>
+                    <Inverter>
+                    <Condition ID="BatteryIsNotCharging"/>
+                    </Inverter>
+                </Sequence>
+                <ReactiveSequence>
+                    <ReactiveFallback>
+                        <Condition ID="IsAtPose" angular_threshold="0.35" linear_threshold="0.25" pose="{charging_station}"/>
+                        <Action ID="GoTo" pose="{charging_station}"/>
+                    </ReactiveFallback>
+                    <Action ID="Wait"/>
+                </ReactiveSequence>
+            </ReactiveFallback>
+            <Sequence>
+                <Action ID="GoTo" pose="{pose_of_interest1}"/>
+                <Action ID="GoTo" pose="{pose_of_interest2}"/>
+            </Sequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Condition ID="BatteryIsNotCharging"/>
+        <Condition ID="BatteryLevelAbove">
+            <input_port name="reference_value"/>
+        </Condition>
+        <Action ID="GoTo">
+            <input_port name="pose"/>
+        </Action>
+        <Condition ID="IsAtPose">
+            <input_port default="0.35" name="angular_threshold">in radians</input_port>
+            <input_port default="0.25" name="linear_threshold">in meters</input_port>
+            <input_port name="pose">in geometry_msgs::msg::Pose</input_port>
+        </Condition>
+        <Action ID="Wait"/>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
+

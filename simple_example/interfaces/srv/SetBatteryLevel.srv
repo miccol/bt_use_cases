@@ -1,0 +1,4 @@
+float32 level
+---
+bool is_ok
+string error_msg

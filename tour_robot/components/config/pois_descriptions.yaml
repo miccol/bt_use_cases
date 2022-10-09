@@ -1,0 +1,22 @@
+pois:
+  poi0:
+    label: "ZERO"
+    description: "This a lovely piece of art called ZERO"
+    active: true
+  poi1:
+    label: "ONE"
+    description: "This a lovely piece of art called ONE"
+    active: true
+  poi2:
+    label: "TWO"
+    description: "This a lovely piece of art called TWO"
+    active: false
+  poi3:
+    label: "THREE"
+    description: "This a lovely piece of art called THREE"
+    active: true
+  # poi4:
+  #   label: "FOUR"
+  #   description: "This a lovely piece of art called FOUR"
+  #   active: true
+
