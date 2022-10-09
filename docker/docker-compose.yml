@@ -29,6 +29,8 @@ services:
 # TODO: replace sleep with proper waiting of /bt_navigator/get_state to be 'active'
   bt:
     <<: *base
+    volumes:
+    - ./home-volume:/home/btuc:rw
     command: sh -c "
              sleep 10;
              ros2 run simple_bts run_bt"
