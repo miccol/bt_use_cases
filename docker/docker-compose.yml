@@ -1,0 +1,46 @@
+version: '2.3'
+
+x-base: &base
+  image: miccol/bt_uc:latest
+  build:
+      dockerfile: Dockerfile.btuc
+      context: .
+  #environment:
+    #- DISPLAY=${DISPLAY}
+  network_mode: host
+  ipc: host
+  pid: host
+  security_opt:
+    - apparmor:unconfined
+
+services:
+  simulation:
+    <<: *base
+    command: ros2 launch bt_uc_sim simple_simulation_launch.py headless:=True
+
+  components:
+    <<: *base
+    command: sh -c "
+             sleep 5;
+            ros2 launch simple_components all_components_launch.py"
+    depends_on: 
+    - simulation
+
+# TODO: replace sleep with proper waiting of /bt_navigator/get_state to be 'active'
+  bt:
+    <<: *base
+    volumes:
+    - ./home-volume:/home/btuc:rw
+    command: sh -c "
+             sleep 10;
+             ros2 run simple_bts run_bt"
+    depends_on: 
+    - simulation
+    - components  
+
+  groot:
+    <<: *base
+    command: ros2 run groot Groot
+    depends_on: 
+    - bt
+
