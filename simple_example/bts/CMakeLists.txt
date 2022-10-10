@@ -9,7 +9,14 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# Add the custom cmake modules
+set(CMAKE_CONFIG_PATH ${CMAKE_MODULE_PATH}  "${CMAKE_CURRENT_LIST_DIR}/cmake-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
+
+
 # find dependencies
+find_package(ZMQ) # Optional
+
 find_package(ament_cmake REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 find_package(nav_msgs REQUIRED)
@@ -23,7 +30,6 @@ find_package(sensor_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(simple_interfaces REQUIRED)
 find_package(ros2_bt_utils REQUIRED)
-find_package(ZMQ) # Optional
 
 
 set(DEPENDENCIES
@@ -60,8 +66,14 @@ add_executable(run_bt
   src/condition_is_at.cpp
   )
 
+  
+if( ZMQ_FOUND )
+  list(APPEND BUILD_TOOL_INCLUDE_DIRS ${ZMQ_INCLUDE_DIRS})
+endif()
+
+
 ament_target_dependencies(run_bt
-${DEPENDENCIES} ${ZMQ_LIBRARIES}
+  ${DEPENDENCIES}
 )
 
 install (
