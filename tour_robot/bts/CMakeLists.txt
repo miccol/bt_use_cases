@@ -9,7 +9,15 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+
+# Add the custom cmake modules
+set(CMAKE_CONFIG_PATH ${CMAKE_MODULE_PATH}  "${CMAKE_CURRENT_LIST_DIR}/cmake-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
+
+
 # find dependencies
+find_package(ZMQ) # Optional
+
 find_package(ament_cmake REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 find_package(nav_msgs REQUIRED)

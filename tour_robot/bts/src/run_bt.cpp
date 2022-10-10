@@ -92,7 +92,7 @@ int main(int argc, char ** argv)
 
 #ifdef ZMQ_FOUND
   // This publish tree to visualize it with Groot
-  PublisherZMQ publisher_zmq(tree);
+  BT::PublisherZMQ publisher_zmq(tree);
 #endif
   BT::FileLogger logger_file(tree, "bt_trace.fbl");
 
