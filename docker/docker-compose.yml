@@ -1,12 +1,17 @@
 version: '2.3'
 
 x-base: &base
-  image: miccol/bt_uc:latest
+  #image: miccol/bt_uc:latest
   build:
       dockerfile: Dockerfile.btuc
       context: .
-  #environment:
-    #- DISPLAY=${DISPLAY}
+  environment:
+    - DISPLAY=${DISPLAY}
+    - QT_X11_NO_MITSHM=1
+
+  volumes:
+    - "/etc/timezone:/etc/timezone:ro"
+    - "/etc/localtime:/etc/localtime:ro"
   network_mode: host
   ipc: host
   pid: host

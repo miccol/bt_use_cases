@@ -24,7 +24,7 @@ RUN groupadd --system --gid ${gid} ${username}; \
 #setup workspace
 WORKDIR /usr/local
 
-COPY . /usr/local/ws/src
+#COPY . /usr/local/ws/src
 
 RUN apt update -qq
 
@@ -40,8 +40,9 @@ RUN source /opt/ros/humble/setup.bash && \
     apt install -y ros-humble-navigation2 &&\
     apt install -y ros-humble-nav2-bringup &&\
     echo "----------------- CLONE and BUILD CUSTOM REPOS ------------" && \
-    cd ws/src && \
+    mkdir -p ws/src; cd ws/src && \
     git clone https://github.com/miccol/ros2_bt_utils.git && \
+    git clone https://github.com/miccol/bt_use_cases.git && \
     git clone https://github.com/BehaviorTree/Groot.git && \
     cd .. && \
     rosdep install --from-paths src --ignore-src && \
@@ -49,18 +50,14 @@ RUN source /opt/ros/humble/setup.bash && \
     colcon build && \
     source /opt/ros/humble/setup.bash && \
     echo "source /usr/local/ws/install/setup.bash">>~/.bashrc && \
+    mkdir -p /home/$username/.ros/log && \
     mkdir -p /home/$username/logs && \
     mkdir -p /home/$username/bts_descriptions && \
-    chown -R $username: /home/$username/logs && \
-    chown -R $username: /home/$username/bts_descriptions
+    chown -R $username: /home/$username/
 
 #setup gazebo simulation env vars
 ENV TURTLEBOT3_MODEL waffle
 ENV GAZEBO_MODEL_PATH $GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/model
-
-# setup vas for X11 server connection (useful if run in WSL)
-ENV DISPLAY host.docker.internal:0.0
-ENV LIBGL_ALWAYS_INDIRECT 0
 
 COPY ros_entrypoint.sh /
 RUN chmod +x /ros_entrypoint.sh
