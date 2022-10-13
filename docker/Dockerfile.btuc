@@ -16,10 +16,11 @@ RUN groupadd --system --gid ${gid} ${username}; \
     mkdir -p /run/user/$uid; \
     chown $username: /run/user/$uid; \
     chmod 700 /run/user/$uid; \
-    chown -R $username: /usr/local/src/; \
-    mkdir -p /home/$username/logs; \
-    mkdir -p /home/$username/bts_descriptions; \
-    chown -R $username: /home/$username/logs
+    chown -R $username: /usr/local/src/ && \
+    mkdir -p /home/$username/logs && \
+    mkdir -p /home/$username/bts_descriptions && \
+    chown -R $username: /home/$username/ && \
+    chmod 700 /home/$username/
 
 #setup workspace
 WORKDIR /usr/local
@@ -28,6 +29,7 @@ WORKDIR /usr/local
 
 RUN apt update -qq
 
+#setup  workspace
 RUN source /opt/ros/humble/setup.bash && \
     echo "----------------- INSTALL DEPENDENCIES -----------------" && \
     apt -y install libgazebo11 && \
@@ -49,13 +51,8 @@ RUN source /opt/ros/humble/setup.bash && \
     echo "----------------- COLCON BUILD -------------------------" && \
     colcon build && \
     source /opt/ros/humble/setup.bash && \
-    echo "source /usr/local/ws/install/setup.bash">>~/.bashrc && \
-    mkdir -p /home/$username/.ros/log && \
-    mkdir -p /home/$username/logs && \
-    mkdir -p /home/$username/bts_descriptions && \
-    chown -R $username: /home/$username/  && \
-    sudo chmod 777 /home/
-    #chown -R $username: /home/$username/.ros/log
+    echo "source /usr/local/ws/install/setup.bash">>~/.bashrc
+
 
 #setup gazebo simulation env vars
 ENV TURTLEBOT3_MODEL waffle
