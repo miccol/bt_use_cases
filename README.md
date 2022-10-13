@@ -64,7 +64,7 @@ Over the years, I found this separation quite useful.
 The figure below depicts a schema with the two actors from the [RobMoSys's Ecosystem Organization](https://robmosys.eu/wiki/general_principles:ecosystem:start) that are mainly involved in this design: The [Behavior Developer](https://robmosys.eu/wiki/general_principles:ecosystem:roles:behavior_developer) and the [Component Supplier](https://robmosys.eu/wiki/general_principles:ecosystem:roles:component_supplier) 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/8132627/195524703-41d75ab4-190f-4f9e-bace-0b641d0928a3.png" />
+  <img src="https://user-images.githubusercontent.com/8132627/195653872-60b4380f-7aaa-4e0a-95e3-3497ec47a97d.png" />
 </p>
 
 which, in ROS2 can translate to:
