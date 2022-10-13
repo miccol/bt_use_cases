@@ -53,7 +53,9 @@ RUN source /opt/ros/humble/setup.bash && \
     mkdir -p /home/$username/.ros/log && \
     mkdir -p /home/$username/logs && \
     mkdir -p /home/$username/bts_descriptions && \
-    chown -R $username: /home/$username/
+    chown -R $username: /home/$username/  && \
+    sudo chmod 777 /home/
+    #chown -R $username: /home/$username/.ros/log
 
 #setup gazebo simulation env vars
 ENV TURTLEBOT3_MODEL waffle
@@ -64,7 +66,7 @@ RUN chmod +x /ros_entrypoint.sh
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 
 
-USER $username
+#USER $username
 WORKDIR /home/$username
 
 CMD ["bash"]

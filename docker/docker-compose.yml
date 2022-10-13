@@ -8,10 +8,15 @@ x-base: &base
   environment:
     - DISPLAY=${DISPLAY}
     - QT_X11_NO_MITSHM=1
-
+    - XDG_RUNTIME_DIR=/run/user/1000
+    - XAUTHORITY=/home/btuc/.Xauthority
+    - DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
   volumes:
     - "/etc/timezone:/etc/timezone:ro"
     - "/etc/localtime:/etc/localtime:ro"
+    - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    - "${XAUTHORITY}:/home/btuc/.Xauthority:rw"
+    - "/run/user/1000/bus:/run/user/1000/bus"
   network_mode: host
   ipc: host
   pid: host
