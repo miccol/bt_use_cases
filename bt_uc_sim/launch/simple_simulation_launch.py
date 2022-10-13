@@ -220,10 +220,6 @@ def generate_launch_description():
             name="init_pose_publisher",
         )
 
-
-
-
-
     # Create the launch description and populate
     ld = LaunchDescription()
 
