@@ -1,10 +1,10 @@
 version: '2.3'
 
 x-base: &base
-  #image: miccol/bt_uc:latest
-  build:
-      dockerfile: Dockerfile.btuc
-      context: .
+  image: miccol/bt_uc:latest
+  # build:
+  #     dockerfile: Dockerfile.btuc
+  #     context: .
   environment:
     - DISPLAY=${DISPLAY}
     - QT_X11_NO_MITSHM=1
