@@ -6,9 +6,7 @@
             <ReactiveFallback>
                 <Sequence>
                     <Condition ID="BatteryLevelAbove" reference_value="0.1"/>
-                    <Inverter>
                     <Condition ID="BatteryIsNotCharging"/>
-                    </Inverter>
                 </Sequence>
                 <ReactiveSequence>
                     <ReactiveFallback>

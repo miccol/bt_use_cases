@@ -71,7 +71,7 @@ int main(int argc, char ** argv)
   factory.registerNodeType<ActionSayText>("SayText");
 
   factory.registerNodeType<ConditionBatteryLevelAbove>("BatteryLevelAbove");
-  factory.registerNodeType<ConditionBatteryIsNotCharging>("BatteryIsCharging");
+  factory.registerNodeType<ConditionBatteryIsNotCharging>("BatteryIsNotCharging");
   factory.registerNodeType<ConditionIsAt>("IsAtPose");
   RCLCPP_INFO(node->get_logger(), "Creating Tree");
 

@@ -6,7 +6,7 @@
             <ReactiveFallback>
                 <Sequence>
                     <Condition ID="BatteryLevelAbove" reference_value="0.1"/>
-                    <Condition ID="BatteryIsCharging"/>
+                    <Condition ID="BatteryIsNotCharging"/>
                 </Sequence>
                 <ReactiveSequence>
                     <ReactiveFallback>
@@ -26,7 +26,7 @@
     </BehaviorTree>
     <!-- ////////// -->
     <TreeNodesModel>
-        <Condition ID="BatteryIsCharging"/>
+        <Condition ID="BatteryIsNotCharging"/>
         <Condition ID="BatteryLevelAbove">
             <input_port name="reference_value"/>
         </Condition>
