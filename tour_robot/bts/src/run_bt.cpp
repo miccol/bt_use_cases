@@ -101,6 +101,7 @@ int main(int argc, char ** argv)
   while (rclcpp::ok()) {
     tree.tickRoot();
     rclcpp::spin_some(node);
+    rclcpp::sleep_for(std::chrono::milliseconds(100));
   }
 
   rclcpp::shutdown();
