@@ -83,7 +83,7 @@ At this point windows should appear as below:
 And finally, run the BT
 
 ```console
-ros2 run simple_bts run_bts
+ros2 run simple_bts run_bt
 ```
 
 
