@@ -28,7 +28,27 @@ The use cases below focus on the BT design and the overall software structure.
 
 ## Installation
 
-1 - Install the dependencies above
+1.0 - Install the dependencies above
+```bash 
+sudo apt install libgazebo11 python3-pip
+pip install transforms3d 
+sudo apt install libzmq3-dev libboost-dev 
+sudo apt install qtbase5-dev libqt5svg5-dev libzmq3-dev libdw-dev
+sudo apt install ros-humble-gazebo-* 
+sudo apt install ros-humble-behaviortree-cpp-v3 
+sudo apt install ros-humble-navigation2 
+sudo apt install ros-humble-nav2-bringup 
+```
+1.1 - pull and install the dependencies for these repos in your ROS2 workspace
+```bash 
+cd <your-ws>
+git clone https://github.com/miccol/ros2_bt_utils.git 
+git clone https://github.com/miccol/bt_use_cases.git 
+git clone https://github.com/BehaviorTree/Groot.git 
+cd .. 
+rosdep install --from-paths src --ignore-src 
+```
+
 
 2 - pull this repo in your ROS2 workspace
 ```bash 
@@ -41,7 +61,7 @@ The use cases below focus on the BT design and the overall software structure.
 colcon build
 ```
 
-Don't forget to export the correct environemtal variable for the simulation
+Don't forget to export the correct environmental variable for the simulation
 ```bash 
 export TURTLEBOT3_MODEL=waffle
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/$ROS_DISTRO/share/turtlebot3_gazebo/models
