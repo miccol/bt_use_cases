@@ -104,7 +104,7 @@ int main(int argc, char ** argv)
   BT::FileLogger logger_file(tree, "bt_trace.fbl");
 
   while (rclcpp::ok()) {
-    tree.tickRoot();
+    tree.rootNode()->executeTick();
     rclcpp::spin_some(node);
     rclcpp::sleep_for(std::chrono::milliseconds(100));
   }
